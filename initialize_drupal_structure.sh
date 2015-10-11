@@ -7,6 +7,11 @@ core_structure_folder=$CURRENT_DIR/core_structure
 public_folder=$CURRENT_DIR/public
 current_folder=$public_folder/current
 
+if [ ! -d "$public_folder" ]; then
+	echo "Creating public folder.."
+  mkdir $public_folder
+fi
+
 items_to_symlink=( sites/default includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
 
 if [ ! -d "$core_structure_folder" ]; then
