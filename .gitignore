@@ -1,0 +1,16 @@
+# Ignore paths that contain user-generated content.
+public/*
+vendor
+.bundle/
+core_structure
+*.txt
+!.gitignore
+!Vagrantfile
+!playbook.yml
+!mailcatcher.yml
+!Gemfile
+!composer.*
+!drupal_host
+*~
+.vagrant/*
+bin/*

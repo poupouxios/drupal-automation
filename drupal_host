@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+  ServerName papasavvas
+  DocumentRoot /vagrant/public/vagrant/
+  RewriteEngine On
+  SetEnv APPLICATION_ENV local
+
+  LogLevel info
+  ErrorLog /var/log/apache2/error.log
+  #CustomLog /var/log/apache2/access.log
+
+  RewriteEngine On
+  RewriteLog /var/log/apache2/rewrite.log
+  RewriteLogLevel 0
+</VirtualHost>
