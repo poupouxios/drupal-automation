@@ -1,7 +1,5 @@
 #!/bin/bash
 
-curl -Ss https://getcomposer.org/installer | php
-
 CURRENT_DIR=$PWD
 core_structure_folder=$CURRENT_DIR/core_structure
 public_folder=$CURRENT_DIR/public
