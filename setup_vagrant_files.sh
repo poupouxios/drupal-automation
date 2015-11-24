@@ -20,7 +20,7 @@ if [ -d "$core_structure_folder" ]; then
 	fi
 
 	for item in ${items_to_symlink[@]}; do
-		if [ ! -f "$vagrant_folder/$item" ] && [ ! -d "$vagrant_folder/$item" ]; then
+		if [ ! -f "$vagrant_folder/$item" ] && [ ! -h "$vagrant_folder/$item" ]; then
 			ln -s $core_structure_folder/$item $vagrant_folder/$item
 		fi
 	done
