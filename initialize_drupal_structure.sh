@@ -5,6 +5,7 @@ core_structure_folder=$CURRENT_DIR/core_structure
 public_folder=$CURRENT_DIR/public
 current_folder=$public_folder/current
 internet_available=false
+drupal_version=7
 
 echo "Checking if internet is available..."
 wget -q --spider http://google.com
@@ -15,23 +16,22 @@ else
 	echo "You are not connected to the internet. The process will continue assuming you've already ran this script before and the structure is in place" 
 fi
 
-while true; do
-    read -p "Which version of Drupal you want to install? (7 or 8)" drupal_version
-		case $drupal_version in
-        7* ) break;;
-        8* ) drupal_version=8.0; break;;
-        * ) echo "Please enter 7 or 8.";;
-    esac
-done
-
 if [ ! -d "$public_folder" ]; then
 	echo "Creating public folder.."
   mkdir $public_folder
 fi
 
-items_to_symlink=( sites/default includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
+items_to_symlink=( sites/default core vendor includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
 
 if [ ! -d "$core_structure_folder" ] && $internet_available ; then
+	while true; do
+		  read -p "Which version of Drupal you want to install? (7 or 8)" drupal_version
+			case $drupal_version in
+		      7* ) break;;
+		      8* ) drupal_version=8.0; break;;
+		      * ) echo "Please enter 7 or 8.";;
+		  esac
+	done
 	mkdir $core_structure_folder
 	cd $core_structure_folder
 	shopt -s dotglob
@@ -42,6 +42,9 @@ if [ ! -d "$core_structure_folder" ] && $internet_available ; then
 	mkdir $current_folder/sites
 	cd ..
 elif $internet_available ; then
+	if [ -d "$core_structure_folder/core" ]; then
+		$drupal_version=8.0;
+	fi
 	echo "Checking for new updates in drupal core.."
 	cd $core_structure_folder
 	git pull origin $drupal_version.x
@@ -63,7 +66,7 @@ if [ -d "$core_structure_folder" ]; then
 		mkdir $current_folder/sites
 	fi
 
-	if [ ! -d "$current_folder/sites/all" ]; then
+	if [ ! -d "$current_folder/sites/all" ] && [$drupal_version ne "8.0"]; then
 		echo "Creating public/current/sites/all folder.."
 		mkdir $current_folder/sites/all
 	fi
