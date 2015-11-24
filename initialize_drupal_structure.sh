@@ -12,8 +12,17 @@ wget -q --spider http://google.com
 if [ $? -eq 0 ]; then
   internet_available=true
 else
-	echo "You are not connected to the internet. The process will continue assuming you've already ran this script before and got the structure in place" 
+	echo "You are not connected to the internet. The process will continue assuming you've already ran this script before and the structure is in place" 
 fi
+
+while true; do
+    read -p "Which version of Drupal you want to install? (7 or 8)" drupal_version
+		case $drupal_version in
+        7* ) break;;
+        8* ) drupal_version=8.0; break;;
+        * ) echo "Please enter 7 or 8.";;
+    esac
+done
 
 if [ ! -d "$public_folder" ]; then
 	echo "Creating public folder.."
@@ -26,7 +35,7 @@ if [ ! -d "$core_structure_folder" ] && $internet_available ; then
 	mkdir $core_structure_folder
 	cd $core_structure_folder
 	shopt -s dotglob
-	git clone -b 7.x https://github.com/drupal/drupal.git
+	git clone -b $drupal_version.x https://github.com/drupal/drupal.git
 	mv drupal/* ./
 	shopt -u dotglob
 	rm -rf drupal
@@ -35,7 +44,7 @@ if [ ! -d "$core_structure_folder" ] && $internet_available ; then
 elif $internet_available ; then
 	echo "Checking for new updates in drupal core.."
 	cd $core_structure_folder
-	git pull origin 7.x
+	git pull origin $drupal_version.x
 fi
 
 if [ -d "$core_structure_folder" ]; then
