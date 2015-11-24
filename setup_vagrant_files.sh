@@ -3,7 +3,7 @@
 CURRENT_DIR=/home/vagrant/source
 core_structure_folder=$CURRENT_DIR/core_structure
 
-if [ -d "core_structure_folder"]; then
+if [ -d "$core_structure_folder" ]; then
 	vagrant_folder=$CURRENT_DIR/public/vagrant
 	external_current_folder=$CURRENT_DIR/public/current
 
