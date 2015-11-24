@@ -25,7 +25,7 @@ items_to_symlink=( sites/default core vendor includes misc modules profiles scri
 
 if [ ! -d "$core_structure_folder" ] && $internet_available ; then
 	while true; do
-		  read -p "Which version of Drupal you want to install? (7 or 8)" drupal_version
+		  read -p "Which version of Drupal you want to install? (7 or 8): " drupal_version
 			case $drupal_version in
 		      7* ) break;;
 		      8* ) drupal_version=8.0; break;;
@@ -39,11 +39,10 @@ if [ ! -d "$core_structure_folder" ] && $internet_available ; then
 	mv drupal/* ./
 	shopt -u dotglob
 	rm -rf drupal
-	mkdir $current_folder/sites
 	cd ..
 elif $internet_available ; then
 	if [ -d "$core_structure_folder/core" ]; then
-		$drupal_version=8.0;
+		drupal_version=8.0;
 	fi
 	echo "Checking for new updates in drupal core.."
 	cd $core_structure_folder
@@ -66,13 +65,13 @@ if [ -d "$core_structure_folder" ]; then
 		mkdir $current_folder/sites
 	fi
 
-	if [ ! -d "$current_folder/sites/all" ] && [$drupal_version ne "8.0"]; then
+	if [ ! -d "$current_folder/sites/all" ] && [ "$drupal_version" == "7" ]; then
 		echo "Creating public/current/sites/all folder.."
 		mkdir $current_folder/sites/all
 	fi
 
 	for item in ${items_to_symlink[@]}; do
-		if [ ! -f "$current_folder/$item" ] && [ ! -d "$current_folder/$item" ]; then
+		if [ ! -f "$current_folder/$item" ] && [ ! -h "$current_folder/$item" ]; then
 			echo "symlinking $core_structure_folder/$item to $current_folder/$item"
 			ln -s $core_structure_folder/$item $current_folder/$item
 		fi
