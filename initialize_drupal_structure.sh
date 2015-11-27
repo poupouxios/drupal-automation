@@ -71,7 +71,7 @@ if [ -d "$core_structure_folder" ]; then
 	fi
 
 	for item in ${items_to_symlink[@]}; do
-		if [ ! -f "$current_folder/$item" ] && [ ! -h "$current_folder/$item" ]; then
+		if [ ! -f "$current_folder/$item" ] && [ ! -h "$current_folder/$item" ]  && ([ -f "$core_structure_folder/$item" ] || [ -d "$core_structure_folder/$item" ]); then
 			echo "symlinking $core_structure_folder/$item to $current_folder/$item"
 			ln -s $core_structure_folder/$item $current_folder/$item
 		fi
