@@ -7,11 +7,17 @@ if [ -d "$core_structure_folder" ]; then
 	vagrant_folder=$CURRENT_DIR/public/vagrant
 	external_current_folder=$CURRENT_DIR/public/current
 
-	items_to_symlink=( sites/default core vendor  includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
+	items_to_symlink=( core vendor  includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
 
 	if [ ! -d "$vagrant_folder/sites" ]; then
 		echo "Creating $vagrant_folder/sites folder.."
 		mkdir $vagrant_folder/sites
+	fi
+
+	if [ ! -d "$vagrant_folder/sites/default" ]; then
+		echo "Creating $vagrant_folder/sites/default folder.."
+    cp -r $core_structure_folder/sites/* $vagrant_folder/sites
+    chmod 755 $vagrant_folder/sites/default
 	fi
 
 	if [ ! -h "$vagrant_folder/sites/all" ] && [ -d "$core_structure_folder/core" ]; then

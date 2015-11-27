@@ -21,7 +21,7 @@ if [ ! -d "$public_folder" ]; then
   mkdir $public_folder
 fi
 
-items_to_symlink=( sites/default core vendor includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
+items_to_symlink=( core vendor includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
 
 if [ ! -d "$core_structure_folder" ] && $internet_available ; then
 	while true; do
@@ -63,6 +63,12 @@ if [ -d "$core_structure_folder" ]; then
 	if [ ! -d "$current_folder/sites" ]; then
 		echo "Creating public/current/sites folder.."
 		mkdir $current_folder/sites
+	fi
+
+	if [ ! -d "$current_folder/sites/default" ]; then
+		echo "Creating $current_folder/sites/default folder.."
+    cp -r $core_structure_folder/sites/* $current_folder/sites
+    chmod 755 $current_folder/sites/default
 	fi
 
 	if [ ! -d "$current_folder/sites/all" ] && [ "$drupal_version" == "7" ]; then
