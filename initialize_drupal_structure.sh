@@ -21,6 +21,12 @@ if [ ! -d "$public_folder" ]; then
   mkdir $public_folder
 fi
 
+if [ ! -d "$CURRENT_DIR/db" ]; then
+	echo "Creating db folder.."
+  mkdir $CURRENT_DIR/db
+fi
+
+
 items_to_symlink=( core vendor includes misc modules profiles scripts themes authorize.php cron.php index.php update.php web.config xmlrpc.php install.php )
 
 if [ ! -d "$core_structure_folder" ] && $internet_available ; then
