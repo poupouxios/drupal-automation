@@ -14,7 +14,7 @@ The end goal of this project is to use this as a submodule on each of my project
 
 An example of this repo in use can be found in my [Drupal Vagrant repo](https://github.com/poupouxios/drupal-vagrant). By its own it doesn't do too much. It needs to be set as a submodule in a Drupal project.
 
-This project is tested on Ubuntu 14.04 and up. The necessary command that need to exist is only [git](sudo apt-get install git).
+This project is tested on Ubuntu 14.04 and up. The necessary command that need to exist is only git.
 
 ## License
 
