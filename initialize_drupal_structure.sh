@@ -31,11 +31,12 @@ items_to_symlink=( core vendor includes misc modules profiles scripts themes aut
 
 if [ ! -d "$core_structure_folder" ] && $internet_available ; then
 	while true; do
-		  read -p "Which version of Drupal you want to install? (7 or 8): " drupal_version
+		  read -p "Which version of Drupal you want to install? (7 or 8.0 or 8.1): " drupal_version
 			case $drupal_version in
 		      7* ) break;;
-		      8* ) drupal_version=8.0; break;;
-		      * ) echo "Please enter 7 or 8.";;
+		      8.0* ) drupal_version=8.0; break;;
+		      8.1* ) drupal_version=8.1; break;;
+		      * ) echo "Please enter 7 or 8.0 or 8.1.";;
 		  esac
 	done
 	mkdir $core_structure_folder
